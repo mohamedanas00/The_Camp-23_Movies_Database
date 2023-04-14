@@ -41,13 +41,31 @@ app.post('/cinema/movies', (req, res) => {
         const params = req.body;
         conection.query('INSERT INTO thecamp_cinema SET ?', params, (err, rows) => {
             if (!err) {
-                res.send(`Movie with Name : ${[params.movie_name]}has been added`);
+                res.send(`Movie with Name : ${[params.movie_name]} has been added`);
             } else {
                 console.log(err);
             }
         })
     })
 })
+
+app.put('/cinema/movies', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+        }
+        const { Id, movie_name, movie_length, movie_director } = req.body;
+
+        conection.query('UPDATE thecamp_cinema SET movie_name=?,movie_length=?,movie_director=? WHERE id = ?', [movie_name, movie_length, movie_director, Id], (err, rows) => {
+            if (!err) {
+                res.send(`Movie with ID : ${[Id]} has been Updated`);
+            } else {
+                console.log(err);
+            }
+        })
+    })
+})
+
 //work in port 5000
 app.listen(5000, () => {
     console.log("ServerRunning on localhost:5000✅ ....");
