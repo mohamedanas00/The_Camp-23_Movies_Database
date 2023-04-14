@@ -165,6 +165,20 @@ app.delete('/cinema/movies/:id', (req, res) => {
         })
     })
 })
+//DELETE FOR TABLE thecamp_movies_actors
+app.delete('/cinema/movies/actors/:id', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) throw err;
+        console.log("conection ✅");
+        conection.query('Delete from thecamp_movies_actors WHERE Id =?', [req.params.id], (err, rows) => {
+            if (!err) {
+                res.send(`Actor with ID : ${[req.params.id]} has been removed`);
+            } else {
+                console.log(err);
+            }
+        })
+    })
+})
 
 
 //work in port 5000
