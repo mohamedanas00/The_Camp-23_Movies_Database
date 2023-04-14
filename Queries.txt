@@ -6,17 +6,18 @@
 
 3)Create Table "thecamp_movies_ratings":-
 ->CREATE TABLE `movies_database`.`thecamp_movies_ratings` (`Id` INT NOT NULL AUTO_INCREMENT , `movie_id` INT NOT NULL , `movie_review` VARCHAR(225) NOT NULL , `date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`Id`), INDEX `movie_idFK` (`movie_id`)) ENGINE = InnoDB;
-*FOREIGNKey:-
+*Make FOREIGNKey:-
 ->ALTER TABLE `thecamp_movies_ratings` ADD FOREIGN KEY (`movie_id`) REFERENCES `thecamp_cinema`(`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-4)
+4)Create Table "thecamp_movies_actors":-
+->CREATE TABLE `movies_database`.`thecamp_movies_actors` (`Id` INT NOT NULL AUTO_INCREMENT , `movie_id` INT NOT NULL , `actor_name` VARCHAR(60) NOT NULL , `actor_salary` INT NOT NULL , PRIMARY KEY (`Id`), INDEX `movie_IdFK` (`movie_id`)) ENGINE = InnoDB;
+*Make FOREIGNKey:-
+->ALTER TABLE `thecamp_movies_actors` ADD FOREIGN KEY (`movie_id`) REFERENCES `thecamp_cinema`(`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-5)
 
-6)return all movies recorded in the database with its reviews, it should look something like this:-
+5)return all movies recorded in the database with its reviews, it should look something like this:-
 ->SELECT `thecamp_cinema`.*, `thecamp_movies_ratings`.`movie_review`, `thecamp_movies_ratings`.`date`
 FROM `thecamp_cinema` 
 	LEFT JOIN `thecamp_movies_ratings` ON `thecamp_movies_ratings`.`movie_id` = `thecamp_cinema`.`Id`;
 	
 	
-SELECT thecamp_cinema .*, thecamp_movies_ratings . movie_review , thecamp_movies_ratings.date FROM  thecamp_cinema LEFT JOIN  thecamp_movies_ratings ON thecamp_movies_ratings.movie_id = thecamp_cinema.Id;	

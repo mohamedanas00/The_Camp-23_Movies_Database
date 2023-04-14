@@ -52,6 +52,23 @@ app.get('/cinema', (req, res) => {
     })
 })
 //----
+//GET FOR TABLE thecamp_movies_actors
+app.get('/cinema/movies/actors', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log("conection ✅");
+        conection.query('SELECT * from thecamp_movies_actors', (err, rows) => {
+            if (!err) {
+                res.send(rows);
+            } else {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        })
+    })
+})
 //ADD FOR TABLE thecamp_cinema
 app.post('/cinema/movies', (req, res) => {
     pool.getConnection((err, conection) => {
