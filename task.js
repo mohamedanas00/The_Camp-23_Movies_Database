@@ -16,6 +16,7 @@ var pool = mysql.createPool({
     password: "",
     database: "movies_database"
 })
+//GET FOR TABLE thecamp_cinema
 app.get('/cinema/movies', (req, res) => {
     pool.getConnection((err, conection) => {
         if (err) {
@@ -32,11 +33,31 @@ app.get('/cinema/movies', (req, res) => {
         })
     })
 })
-
+//EXtra
+//return all movies recorded in the database with its reviews
+app.get('/cinema', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log("conection ✅");
+        conection.query('SELECT thecamp_cinema .*, thecamp_movies_ratings . movie_review , thecamp_movies_ratings.date FROM  thecamp_cinema LEFT JOIN  thecamp_movies_ratings ON thecamp_movies_ratings.movie_id = thecamp_cinema.Id', (err, rows) => {
+            if (!err) {
+                res.send(rows);
+            } else {
+                res.status(500).send(err);
+                console.log(err);
+            }
+        })
+    })
+})
+//----
+//ADD FOR TABLE thecamp_cinema
 app.post('/cinema/movies', (req, res) => {
     pool.getConnection((err, conection) => {
         if (err) {
             console.log(err);
+            res.status(500).send(err);
         }
         const params = req.body;
         conection.query('INSERT INTO thecamp_cinema SET ?', params, (err, rows) => {
@@ -48,7 +69,23 @@ app.post('/cinema/movies', (req, res) => {
         })
     })
 })
-
+//POST FOR TABLE thecamp_movies_ratings
+app.post('/cinema/movies/ratings', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+        }
+        const params = req.body;
+        conection.query('INSERT INTO thecamp_movies_ratings SET ?', params, (err, rows) => {
+            if (!err) {
+                res.send(`Movie_review For movieId: ${[params.movie_id]} has been added`);
+            } else {
+                console.log(err);
+            }
+        })
+    })
+})
+//UPDATE FOR TABLE thecamp_cinema
 app.put('/cinema/movies', (req, res) => {
     pool.getConnection((err, conection) => {
         if (err) {
@@ -64,7 +101,7 @@ app.put('/cinema/movies', (req, res) => {
         })
     })
 })
-
+//DELETE FOR TABLE thecamp_cinema
 app.delete('/cinema/movies/:id', (req, res) => {
     pool.getConnection((err, conection) => {
         if (err) throw err;
@@ -78,6 +115,8 @@ app.delete('/cinema/movies/:id', (req, res) => {
         })
     })
 })
+
+
 //work in port 5000
 app.listen(5000, () => {
     console.log("ServerRunning on localhost:5000✅ ....");

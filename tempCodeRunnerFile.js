@@ -1,1 +1,1 @@
-/cinema/movies:id
+            // console.log(err);
