@@ -1,1 +1,1 @@
-thecamp_movies_actors
+actors

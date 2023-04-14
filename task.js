@@ -86,6 +86,23 @@ app.post('/cinema/movies', (req, res) => {
         })
     })
 })
+//ADD FOR TABLE thecamp_movies_actors
+app.post('/cinema/movies/actors', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        }
+        const params = req.body;
+        conection.query('INSERT INTO thecamp_movies_actors SET ?', params, (err, rows) => {
+            if (!err) {
+                res.send(`Actor with Name : ${[params.actor_name]} has been added`);
+            } else {
+                console.log(err);
+            }
+        })
+    })
+})
 //POST FOR TABLE thecamp_movies_ratings
 app.post('/cinema/movies/ratings', (req, res) => {
     pool.getConnection((err, conection) => {
