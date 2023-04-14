@@ -15,9 +15,15 @@
 =>ALTER TABLE `thecamp_movies_actors` ADD FOREIGN KEY (`movie_id`) REFERENCES `thecamp_cinema`(`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-5)return all movies recorded in the database with its reviews, it should look something like this:-
+5)return all movies recorded in the database with its reviews:-
 =>SELECT `thecamp_cinema`.*, `thecamp_movies_ratings`.`movie_review`, `thecamp_movies_ratings`.`date`
 FROM `thecamp_cinema` 
 	LEFT JOIN `thecamp_movies_ratings` ON `thecamp_movies_ratings`.`movie_id` = `thecamp_cinema`.`Id`;
 	
 	
+6)4- return all movies recorded in the database with its actors:-
+=>SELECT `thecamp_cinema`.*, `thecamp_movies_actors`.`actor_name`, `thecamp_movies_actors`.`actor_salary`
+FROM `thecamp_cinema` 
+	LEFT JOIN `thecamp_movies_actors` ON `thecamp_movies_actors`.`movie_id` = `thecamp_cinema`.`Id`;	
+
+7)
