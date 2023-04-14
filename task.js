@@ -112,7 +112,7 @@ app.post('/cinema/movies/ratings', (req, res) => {
         const params = req.body;
         conection.query('INSERT INTO thecamp_movies_ratings SET ?', params, (err, rows) => {
             if (!err) {
-                res.send(`Movie_review For movieId: ${[params.movie_id]} has been added`);
+                res.send(`Movie_review for movieId: ${[params.movie_id]} has been added`);
             } else {
                 console.log(err);
             }
@@ -129,6 +129,22 @@ app.put('/cinema/movies', (req, res) => {
         conection.query('UPDATE thecamp_cinema SET movie_name=?,movie_length=?,movie_director=? WHERE id = ?', [movie_name, movie_length, movie_director, Id], (err, rows) => {
             if (!err) {
                 res.send(`Movie with ID : ${[Id]} has been Updated`);
+            } else {
+                console.log(err);
+            }
+        })
+    })
+})
+//UPDATE FOR TABLE thecamp_movies_actors
+app.put('/cinema/movies/actors', (req, res) => {
+    pool.getConnection((err, conection) => {
+        if (err) {
+            console.log(err);
+        }
+        const { Id, movie_id, actor_name, actor_salary } = req.body;
+        conection.query('UPDATE thecamp_movies_actors SET movie_id=?,actor_name=?,actor_salary=? WHERE id = ?', [movie_id, actor_name, actor_salary, Id], (err, rows) => {
+            if (!err) {
+                res.send(`Actor with ID : ${[Id]} has been Updated`);
             } else {
                 console.log(err);
             }
