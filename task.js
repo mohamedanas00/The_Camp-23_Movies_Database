@@ -14,3 +14,8 @@ var pool = mysql.createPool({
     database: "Movies Database"
 })
 
+
+//work in port 5000
+app.listen(5000, () => {
+    console.log("ServerRunning on localhost:5000✅ ....");
+})
