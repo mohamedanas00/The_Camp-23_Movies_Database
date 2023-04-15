@@ -26,4 +26,14 @@ FROM `thecamp_cinema`
 FROM `thecamp_cinema` 
 	LEFT JOIN `thecamp_movies_actors` ON `thecamp_movies_actors`.`movie_id` = `thecamp_cinema`.`Id`;	
 
-7)
+7)5- return the total number of reviews for each movie in thecamp_movie_reviews table,
+=>SELECT  `thecamp_cinema`.`Id` ,`thecamp_cinema`.`movie_name`,COUNT(`movie_review`) AS 'TOTAL_Review'
+FROM `thecamp_movies_ratings` 
+	LEFT JOIN `thecamp_cinema` ON `thecamp_movies_ratings`.`movie_id` = `thecamp_cinema`.`Id`
+	GROUP BY `movie_id` ;
+	
+8)
+=>SELECT  `thecamp_cinema`.`Id` ,`thecamp_cinema`.`movie_name`,avg(`actor_salary`) AS 'avg_Review'
+FROM `thecamp_movies_actors` 
+	LEFT JOIN `thecamp_cinema` ON `thecamp_movies_actors`.`movie_id` = `thecamp_cinema`.`Id`
+	GROUP BY `movie_id` ;
